@@ -1,14 +1,11 @@
-python siren_llm.py
-
 # SIREN: Signal-Intelligent Resonance Encoding Network
 
 ## A Field-Theoretic Approach to Unbounded Context Management in Large Language Models
 
-![IRE Field Visualization](https://raw.githubusercontent.com/username/siren/main/assets/field_visualization.png)
+![memory_field_test1](https://github.com/user-attachments/assets/3062ec71-75db-42d5-9f9a-46b8fe36354e)
 
-[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)]()
-[![License](https://img.shields.io/badge/license-MIT-green)]()
-[![arXiv](https://img.shields.io/badge/arXiv-2023.xxxxx-b31b1b)]()
+[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)]()
+
 
 ## 📑 Table of Contents
 - [Introduction and Theoretical Foundation](#introduction-and-theoretical-foundation)
