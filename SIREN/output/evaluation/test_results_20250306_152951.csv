@@ -1,0 +1,38 @@
+test_type,test_id,query,expected,distance,success,response
+Temporal Distance,1,What is the atomic number of gold?,79,7,True,"The atomic number of gold, which determines the number of protons in an atom's nucleus and therefore..."
+Temporal Distance,2,What is the capital of Madagascar?,Antananarivo,7,True,"[CONTINUATION] Some popular tourist destinations in Southeast Asia include:
+
+1. Bali, Indonesia: Kno..."
+Temporal Distance,3,What is the average distance from Earth to Mars?,225 million kilometers,7,False,The average distance between Earth and Mars varies because their orbits are not perfectly circular a...
+Information Interference,1,What is the capital of France?,Paris,1,True,"[CONTEXT] The capital of Madagascar is Antananarivo (often shortened to Tana).
+
+The capital of Franc..."
+Information Interference,1,What is the population of France?,67 million,1,True,The population of France as of 2021 is approximately 67 million people.
+Information Interference,2,What is the capital of Germany?,Berlin,1,True,"The capital of Germany is Berlin. It is a major center for politics, media, culture, cuisine, and sc..."
+Information Interference,2,What is the population of Germany?,83 million,1,True,"The population of Germany, according to recent estimates, is around 83 million. Please note that thi..."
+Information Interference,3,What is the capital of Japan?,Tokyo,1,True,"[CONTEXT] You asked about the capitals of Germany and Japan:
+
+The capital of Germany is Berlin.
+
+The..."
+Information Interference,3,What is the population of Japan?,126 million,1,True,The current estimated population of Japan is approximately 126 million people as of 2021. This numbe...
+Information Interference,4,What is the capital of Brazil?,Brasília,1,True,"The capital of Germany is Berlin.
+
+Madagascar's capital is Antananarivo.
+ 
+Brazil's capital is Brasí..."
+Information Interference,4,What is the population of Brazil?,213 million,1,True,"[CONTEXT] In cricket, a game between two teams of eleven players each, the basic objective is to sco..."
+Complex Reasoning,1,What is Carol's profession?,doctor,1,False,I do not have information about Carol's profession. Please provide more context or details if availa...
+Complex Reasoning,2,What is Alice's relationship to Carol?,sister-in-law,1,False,"[CONTEXT] Yes, I remember that Alice is indeed Bob's sister. To answer your question about Alice's r..."
+Complex Reasoning,3,What was David's job before retirement?,teacher,1,False,"[CONTEXT] I don't have any information about an individual named ""David"" or his previous job. Could ..."
+Complex Reasoning,4,How is David related to Carol?,father-in-law,1,False,"[CONTEXT] The basic rules of cricket are as follows:
+
+1. Cricket is a sport played between two teams..."
+Semantic Retrieval,1,What famous artwork is displayed in Paris?,Mona Lisa,8,True,"The capital of Germany is Berlin.
+
+Some influential movements in 20th-century art include:
+
+1. Cubis..."
+Semantic Retrieval,2,Which post-impressionist artist created a famous painting of the night sky?,Vincent van Gogh,8,True,"[Vaccines typically work by introducing a harmless piece of the virus (or part of it, like its prote..."
+Semantic Retrieval,3,What major infrastructure project was completed in America during the 1930s?,Hoover Dam,8,True,"In the 20th century, several influential movements shaped the course of artistic expression. Some no..."
+Semantic Retrieval,4,What natural wonder can be found near Australia?,Great Barrier Reef,8,False,One of the most famous natural wonders that can be found in close proximity to Australia is Uluru (a...

@@ -1,0 +1,19 @@
+=== SIREN MEMORY ENHANCEMENT EVALUATION SUMMARY ===
+
+Total recall tests conducted: 19
+Successful recalls: 13
+Overall recall success rate: 68.42%
+
+Performance by test type:
+- Complex Reasoning: 0.00%
+- Information Interference: 100.00%
+- Semantic Retrieval: 75.00%
+- Temporal Distance: 66.67%
+
+Test Description:
+1. Temporal Distance Recall: Tests recall after numerous intervening messages
+2. Information Interference: Tests ability to distinguish similar but distinct information
+3. Complex Reasoning Chains: Tests recall and connection of related information
+4. Semantic Retrieval: Tests ability to recall information based on semantic rather than exact matches
+
+Detailed results and visualizations saved to SIREN/output/evaluation/ directory.

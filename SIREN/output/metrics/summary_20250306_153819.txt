@@ -1,0 +1,18 @@
+=== SIREN PERFORMANCE SUMMARY ===
+
+Total messages: 105
+User messages: 52
+Assistant messages: 52
+
+Average response time: 9366.34 ms
+Max response time: 26778.41 ms
+Min response time: 997.35 ms
+
+Field metrics (final state):
+- role: assistant
+- content: One of the most famous natural wonders that can be found in close proximity to Australia is Uluru (also known as Ayers Rock). It's located in the heart of the Red Centre in the Northern Territory, about 335 km (208 miles) south-west of Alice Springs. Uluru is a large sandstone monolith that is sacred to the indigenous Anangu people and attracts millions of visitors each year.
+- field_importance: 3.1973
+- response_time_ms: 4289.67
+- tokens: 66.0
+
+Detailed CSV data and visualizations saved to SIREN/output/ directory.

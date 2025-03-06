@@ -1,0 +1,16 @@
+=== SIREN PERFORMANCE SUMMARY ===
+
+Total messages: 1
+User messages: 0
+Assistant messages: 0
+
+Field metrics (final state):
+- role: system
+- content: You are an AI assistant enhanced with SIREN (Signal-Intelligent Resonance Encoding Network) 
+                memory capabilities. You can recall information accurately regardless of how long ago 
+                it was mentioned in the conversation. Be helpful, accurate, and informative.
+- field_importance: 2.0
+- response_time_ms: nan
+- tokens: nan
+
+Detailed CSV data and visualizations saved to SIREN/output/ directory.

@@ -1,0 +1,21 @@
+{
+  "session_id": "20250306_155504",
+  "model": "nousresearch/deephermes-3-llama-3-8b-preview",
+  "timestamp": "2025-03-06T15:55:24.033589",
+  "field_parameters": {
+    "dimensions": [
+      128,
+      128
+    ],
+    "diffusion_constant": 0.1,
+    "damping": 0.8,
+    "potential_alpha": 0.5,
+    "potential_beta": 0.1,
+    "nonlocal_scale": 100,
+    "projection_method": "pca"
+  },
+  "conversation": [
+    {
+      "role": "system",
+      "content": "You are an AI assistant enhanced with SIREN (Signal-Intelligent Resonance Encoding Network) \n                memory capabilities. You can recall information accurately regardless of how long ago \n                it was mentioned in the conversation. Be helpful, accurate, and informative.",
+      "embedding": 
