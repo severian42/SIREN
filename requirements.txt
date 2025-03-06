@@ -17,3 +17,4 @@ umap-learn
 sentence-transformers
 rich
 einops
+python-dotenv
