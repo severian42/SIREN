@@ -11,8 +11,8 @@ import argparse
 import datetime
 import numpy as np
 import matplotlib
-matplotlib.use('TkAgg')  # Use TkAgg backend which is better for non-blocking plots
-matplotlib.interactive(True)  # Enable interactive mode globally
+matplotlib.use('TkAgg')  
+matplotlib.interactive(True) 
 import matplotlib.pyplot as plt
 from rich.console import Console
 from rich.markdown import Markdown
@@ -21,10 +21,13 @@ from rich.table import Table
 from rich.progress import Progress
 import sys
 import functools
+from dotenv import load_dotenv
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from SIREN_IRE.siren_llm import SIRENEnhancedLLM, IRE_Field
+from siren_llm import SIRENEnhancedLLM, IRE_Field
 
+# Load environment variables from .env file
+load_dotenv()
 
 console = Console()
 
@@ -78,11 +81,12 @@ Type 'chat <message>' to start talking to the AI.
     """
     prompt = "\n[SIREN]> "
 
-    def __init__(self, api_url, model, field_dims=(128, 128)):
+    def __init__(self, api_url, model, field_dims=(128, 128), default_params=None):
         super().__init__()
         self.api_url = api_url
         self.model = model
         self.field_dims = field_dims
+        self.default_params = default_params or {}
         
         with console.status("[green]Initializing SIREN...", spinner="dots"):
             # Initialize the SIREN-enhanced LLM
@@ -90,6 +94,10 @@ Type 'chat <message>' to start talking to the AI.
                 api_url=api_url,
                 model=model
             )
+            
+            # Apply default field parameters if provided
+            if self.default_params:
+                self.llm.tune_field_parameters(**self.default_params)
             
             # Add default system message
             self.llm.add_message("system", 
@@ -105,14 +113,16 @@ Type 'chat <message>' to start talking to the AI.
         
         # Session tracking
         self.session_id = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.conversation_file = f"SIREN/output/conversations/session_{self.session_id}.json"
+        # Use OUTPUT_DIR from environment if available
+        self.output_dir = os.getenv("OUTPUT_DIR", "SIREN/output")
+        self.conversation_file = f"{self.output_dir}/conversations/session_{self.session_id}.json"
         self.ensure_output_dirs()
 
     def ensure_output_dirs(self):
         """Ensure output directories exist"""
-        os.makedirs("SIREN/output/conversations", exist_ok=True)
-        os.makedirs("SIREN/output/visualizations", exist_ok=True)
-        os.makedirs("SIREN/output/metrics", exist_ok=True)
+        os.makedirs(f"{self.output_dir}/conversations", exist_ok=True)
+        os.makedirs(f"{self.output_dir}/visualizations", exist_ok=True)
+        os.makedirs(f"{self.output_dir}/metrics", exist_ok=True)
 
     def _print_field_params(self):
         """Print current field parameters in a table"""
@@ -180,7 +190,7 @@ Type 'chat <message>' to start talking to the AI.
         console.print("[bold]Generating field visualization...[/bold]")
         
         # Generate visualization
-        vis_path = f"SIREN/output/visualizations/field_{self.session_id}_{len(self.llm.conversation)}.png"
+        vis_path = f"{self.output_dir}/visualizations/field_{self.session_id}_{len(self.llm.conversation)}.png"
         
         with console.status("[green]Creating visualization...", spinner="dots"):
             self.llm.visualize_memory_field(vis_path)
@@ -268,7 +278,7 @@ Type 'chat <message>' to start talking to the AI.
             plt.tight_layout()
             
             # Save visualization
-            imp_path = f"SIREN/output/visualizations/importance_{self.session_id}.png"
+            imp_path = f"{self.output_dir}/visualizations/importance_{self.session_id}.png"
             plt.savefig(imp_path)
             
             # Draw the figure and wait for a short time
@@ -413,7 +423,7 @@ Type 'chat <message>' to start talking to the AI.
             filename += '.json'
         
         if not os.path.dirname(filename):
-            filename = f"SIREN/output/conversations/{filename}"
+            filename = f"{self.output_dir}/conversations/{filename}"
         
         self._save_conversation(filename)
         console.print(f"[green]✓[/green] Conversation saved to {filename}")
@@ -461,11 +471,20 @@ Type 'chat <message>' to start talking to the AI.
         if not filename.endswith('.json'):
             filename += '.json'
             
-        if not os.path.isfile(filename) and not os.path.isfile(f"SIREN/output/conversations/{filename}"):
-            if os.path.isfile(f"SIREN/output/conversations/{filename}.json"):
-                filename = f"SIREN/output/conversations/{filename}.json"
+        if not os.path.isfile(filename):
+            potential_paths = [
+                filename,
+                f"{self.output_dir}/conversations/{filename}",
+                f"{self.output_dir}/conversations/{filename}.json"
+            ]
+            
+            for path in potential_paths:
+                if os.path.isfile(path):
+                    filename = path
+                    break
             else:
-                filename = f"SIREN/output/conversations/{filename}"
+                console.print(f"[red]Could not find file: {filename}[/red]")
+                return False
                 
         try:
             with open(filename, 'r') as f:
@@ -625,15 +644,22 @@ def main():
     """Main entry point for the SIREN CLI"""
     parser = argparse.ArgumentParser(description="SIREN CLI for interacting with SIREN-enhanced LLMs")
     
-    # Set up command-line arguments
-    parser.add_argument("--api-url", type=str, default="http://localhost:11434/v1/chat/completions",
+    # Set up command-line arguments with environment variable defaults
+    parser.add_argument("--api-url", type=str, 
+                        default=os.getenv("API_URL", "http://localhost:11434/v1/chat/completions"),
                         help="LLM API endpoint URL")
     
-    parser.add_argument("--model", type=str, default="nousresearch/deephermes-3-llama-3-8b-preview",
+    parser.add_argument("--model", type=str, 
+                        default=os.getenv("MODEL_NAME", "nousresearch/deephermes-3-llama-3-8b-preview"),
                         help="Model identifier")
     
-    parser.add_argument("--field-dims", type=str, default="128,128",
+    parser.add_argument("--field-dims", type=str, 
+                        default=os.getenv("FIELD_DIMENSIONS", "128,128"),
                         help="Field dimensions (comma-separated integers)")
+    
+    parser.add_argument("--output-dir", type=str,
+                        default=os.getenv("OUTPUT_DIR", "SIREN/output"),
+                        help="Directory for output files")
     
     args = parser.parse_args()
     
@@ -644,8 +670,30 @@ def main():
         console.print("[red]Error parsing field dimensions. Using default (128,128).[/red]")
         field_dims = (128, 128)
     
+    # Get default field parameters from environment
+    default_params = {}
+    if os.getenv("DIFFUSION_CONSTANT"):
+        default_params["diffusion_constant"] = float(os.getenv("DIFFUSION_CONSTANT"))
+    if os.getenv("DAMPING"):
+        default_params["damping"] = float(os.getenv("DAMPING"))
+    if os.getenv("POTENTIAL_ALPHA"):
+        default_params["potential_alpha"] = float(os.getenv("POTENTIAL_ALPHA"))
+    if os.getenv("POTENTIAL_BETA"):
+        default_params["potential_beta"] = float(os.getenv("POTENTIAL_BETA"))
+    if os.getenv("NONLOCAL_SCALE"):
+        default_params["nonlocal_scale"] = float(os.getenv("NONLOCAL_SCALE"))
+    
+    # Override OUTPUT_DIR environment variable with command line argument
+    if args.output_dir != os.getenv("OUTPUT_DIR", "SIREN/output"):
+        os.environ["OUTPUT_DIR"] = args.output_dir
+    
     # Start the interactive shell
-    shell = SIRENShell(api_url=args.api_url, model=args.model, field_dims=field_dims)
+    shell = SIRENShell(
+        api_url=args.api_url, 
+        model=args.model, 
+        field_dims=field_dims,
+        default_params=default_params
+    )
     
     try:
         # Run the command loop
