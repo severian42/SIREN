@@ -79,7 +79,7 @@ class SIRENShell(cmd.Cmd):
 Type 'help' or '?' to list commands.
 Type 'chat <message>' to start talking to the AI.
     """
-    prompt = "\n[SIREN]> "
+    prompt = "\n[USER]> "
 
     def __init__(self, api_url, model, field_dims=(128, 128), default_params=None):
         super().__init__()
