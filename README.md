@@ -23,7 +23,7 @@
 
 ## Introduction and Theoretical Foundation
 
-The Signal-Intelligent Resonance Encoding Network (SIREN) represents a fundamental paradigm shift in how we conceptualize information persistence and retrieval in the context of large language models. Rather than treating context as a sequence of tokens or a collection of static embeddings, SIREN introduces a novel first-principles approach based on [**Information Relative Evolution (IRE)**](https://github.com/severian42/Informational-Relative-Evolution) theory, wherein information is modeled as a dynamic field that exhibits wave-like properties, self-organization, and nonlocal interactions.
+The Signal-Intelligent Resonance Encoding Network (SIREN) represents a fundamental paradigm shift in how we conceptualize information persistence and retrieval in the context of large language models. Rather than treating context as a sequence of tokens or a collection of static embeddings, SIREN introduces a novel first-principles approach based on [**The Biomimicry Equation**](https://github.com/severian42/The-Biomimicry-Equation) theory, wherein information is modeled as a dynamic field that exhibits wave-like properties, self-organization, and nonlocal interactions.
 
 ### The Information Field Hypothesis
 
